@@ -238,9 +238,6 @@ fn render_nodes_into(
                 }
             }
 
-            Node::ContentPlaceholder => {
-                write_content(content_html, out, &mut suppress_one_leading_space);
-            }
             Node::Error(msg) => {
                 out.push_str("<template-error>");
                 out.push_str(msg);

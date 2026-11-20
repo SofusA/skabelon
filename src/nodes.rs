@@ -1,31 +1,30 @@
 use serde_json::Value;
 
 #[derive(Clone, Debug, PartialEq)]
-pub enum Node {
+pub(crate) enum Node {
     Text(String),
     VariableBlock(Vec<String>),
     Forloop(ForLoop),
     If(If),
     Include(Include),
-    ContentPlaceholder,
     Error(String),
 }
 
 #[derive(Clone, Debug, PartialEq)]
-pub struct ForLoop {
+pub(crate) struct ForLoop {
     pub value: String,
     pub container: Vec<String>,
     pub body: Vec<Node>,
 }
 
 #[derive(Clone, Debug, PartialEq)]
-pub enum Operand {
+pub(crate) enum Operand {
     Path(Vec<String>),
     Literal(Value),
 }
 
 #[derive(Clone, Debug, PartialEq)]
-pub enum CompareOp {
+pub(crate) enum CompareOp {
     Eq,
     Ne,
     Lt,
@@ -35,7 +34,7 @@ pub enum CompareOp {
 }
 
 #[derive(Clone, Debug, PartialEq)]
-pub enum Condition {
+pub(crate) enum Condition {
     Literal(bool),
     Path(Vec<String>),
     And(Vec<Condition>),
@@ -49,20 +48,20 @@ pub enum Condition {
 }
 
 #[derive(Clone, Debug, PartialEq)]
-pub struct If {
+pub(crate) struct If {
     pub conditions: Vec<(Condition, Vec<Node>)>,
     pub otherwise: Option<Vec<Node>>,
 }
 
 #[derive(Clone, Debug, PartialEq)]
-pub struct Include {
+pub(crate) struct Include {
     pub path: String,
     pub body: Vec<Node>,
     pub local_ctx: Vec<(String, LocalValue)>,
 }
 
 #[derive(Clone, Debug, PartialEq)]
-pub enum LocalValue {
+pub(crate) enum LocalValue {
     Literal(Value),
     Path(Vec<String>),
 }
