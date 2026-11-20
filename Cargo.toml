@@ -1,25 +1,45 @@
 [package]
 name = "skabelon"
-version = "0.2.4"
+version = "0.2.5"
 edition = "2024"
 description = "Simple templating engine for rust using angular syntax"
 license = "MIT"
 repository = "https://github.com/sofusa/skabelon"
 
 [dependencies]
-serde = "1"
 serde_json = "1"
 glob = "0.3"
 pathdiff = "0.2"
 
-anyhow = "1"
-axum = "0.8"
-clap = { version = "4", features = ["derive"] }
-filesentry = "0.2"
-tokio = { version = "1", features = ["macros", "rt-multi-thread", "net", "sync"] }
-tokio-stream = { version = "0.1", features = ["sync"] }
-tower-http = { version = "0.6", features = ["fs"] }
-walkdir = "2"
+# Binary dependencies
+serde = { version ="1", optional = true }
+anyhow = { version = "1", optional = true }
+axum = { version = "0.8", optional = true }
+clap = { version = "4", features = ["derive"], optional = true }
+filesentry = { version = "0.2", optional = true }
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "net", "sync"], optional = true }
+tokio-stream = { version = "0.1", features = ["sync"], optional = true }
+tower-http = { version = "0.7", features = ["fs"], optional = true }
+walkdir = { version = "2", optional = true }
+
+[features]
+default = []
+cli = [
+    "dep:anyhow",
+    "dep:axum",
+    "dep:clap",
+    "dep:filesentry",
+    "dep:serde",
+    "dep:tokio",
+    "dep:tokio-stream",
+    "dep:tower-http",
+    "dep:walkdir",
+]
+
+[[bin]]
+name = "skabelon"
+path = "src/main.rs"
+required-features = ["cli"]
 
 [dev-dependencies]
 tempfile = "3"
