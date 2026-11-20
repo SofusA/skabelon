@@ -12,6 +12,15 @@ serde_json = "1"
 glob = "0.3"
 pathdiff = "0.2"
 
+anyhow = "1"
+axum = "0.8"
+clap = { version = "4", features = ["derive"] }
+filesentry = "0.2"
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "net", "sync"] }
+tokio-stream = { version = "0.1", features = ["sync"] }
+tower-http = { version = "0.6", features = ["fs"] }
+walkdir = "2"
+
 [dev-dependencies]
 tempfile = "3"
 criterion = "0.8"
